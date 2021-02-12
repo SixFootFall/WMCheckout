@@ -1,6 +1,13 @@
+from ca.entities.product import Product
+
+
 class ProductError(Exception):
-    pass
+    ...
 
 
 class RepositoryError(ProductError):
-    pass
+    ...
+
+
+class UseCaseError(ProductError):
+    ...
