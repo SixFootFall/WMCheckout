@@ -1,9 +1,10 @@
+from ca.repositories.interfaces import IMemoryRepository
 from typing import List
 from ca.exceptions import RepositoryError
 from ca.entities.product import Product
 
 
-class MemoryRepository:
+class MemoryRepository(IMemoryRepository):
     def __init__(self, entries=None):
         self._entries = []
         if entries:
