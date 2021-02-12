@@ -7,5 +7,5 @@ class CreateProductUseCase(ICreateProductUseCase):
         self.repo = repository
 
     def execute(self, code, name, price):
-        product = Product(code=code, name=name, price=price)
-        return self.repo.create(product)
+        product = self.repo.create(code, name, price)
+        return product
