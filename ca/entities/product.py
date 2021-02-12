@@ -1,4 +1,4 @@
-class Item:
+class Product:
     def __init__(self, code: str, name: str, price: float):
         self.code = code
         self.name = name
@@ -9,11 +9,11 @@ class Item:
 
     @classmethod
     def from_dict(self, adict: dict):
-        item = Item(code=adict["code"], name=adict["name"], price=adict["price"])
-        return item
+        product = Product(code=adict["code"], name=adict["name"], price=adict["price"])
+        return product
 
     def __eq__(self, other):
         return self.as_dict() == other.as_dict()
 
     def __repr__(self):
-        return f"""<Item code:{self.code}, name:{self.name}, base price:{self.price}>"""
+        return f"""<Product code:{self.code}, name:{self.name}, base price:{self.price}>"""
