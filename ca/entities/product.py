@@ -1,4 +1,7 @@
-class Product:
+from ca.entities.interfaces import IProduct
+
+
+class Product(IProduct):
     def __init__(self, code: str, name: str, price: float):
         self.code = code
         self.name = name
@@ -8,7 +11,7 @@ class Product:
         return {"code": self.code, "name": self.name, "price": self.price}
 
     @classmethod
-    def from_dict(self, adict: dict):
+    def from_dict(self, adict: dict) -> IProduct:
         product = Product(code=adict["code"], name=adict["name"], price=adict["price"])
         return product
 
