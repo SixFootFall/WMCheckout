@@ -9,15 +9,14 @@ class MemoryRepository:
         if entries:
             self._entries.extend(entries)
 
-    def _validate(self, product: Product):
+    def find_by_code(self, code):
         for entry in self._entries:
-            if entry["code"] == product.code:
-                raise RepositoryError(f'Product with code "{product.code}" already exists')
+            if entry["code"] == code:
+                return Product.from_dict(entry)
 
     def create(self, code, name, price) -> Product:
         adict = {"code": code, "name": name, "price": price}
         product_entity = Product.from_dict(adict)
-        self._validate(product_entity)
         self._entries.append(adict)
         return product_entity
 
