@@ -1,3 +1,4 @@
+from typing import List
 from ca.exceptions import RepositoryError
 from ca.entities.product import Product
 
@@ -20,6 +21,6 @@ class MemoryRepository:
         self._entries.append(adict)
         return product_entity
 
-    def list(self):
+    def list(self) -> List[Product]:
         result = self._entries
         return [Product.from_dict(entry) for entry in result]
