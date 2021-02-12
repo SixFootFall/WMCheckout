@@ -20,8 +20,6 @@ class MemoryRepository:
         self._entries.append(adict)
         return product_entity
 
-    def list(self, filters=None):
-        if not filters:
-            result = self._entries
-
+    def list(self):
+        result = self._entries
         return [Product.from_dict(entry) for entry in result]
