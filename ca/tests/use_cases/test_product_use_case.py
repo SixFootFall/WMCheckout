@@ -9,7 +9,7 @@ from ca.use_cases.products.create_product_use_case import CreateProductUseCase
 from ca.exceptions import UseCaseError
 
 
-class MemoryFindRepository(IProductRepository):
+class FakeProductMemoryRepositoryFind(IProductRepository):
     def find_by_code(self, code: str) -> IProduct:
         return Product(code="001", name="Lizard", price=25.99)
 
@@ -20,7 +20,7 @@ class MemoryFindRepository(IProductRepository):
         return Product(code="001", name="Lizard", price=25.99)
 
 
-class MemoryCreateRepository(IProductRepository):
+class FakeProductMemoryRepositoryCreate(IProductRepository):
     def find_by_code(self, code: str) -> IProduct:
         return None
 
@@ -33,12 +33,12 @@ class MemoryCreateRepository(IProductRepository):
 
 class TestCreateProductUseCase(unittest.TestCase):
     def test_base_execute(self):
-        repo = MemoryCreateRepository()
+        repo = FakeProductMemoryRepositoryCreate()
         use_case = CreateProductUseCase(repo)
         entity = use_case.execute("001", "Lizard", 25.99)
         self.assertIsInstance(entity, Product)
 
     def test_duplicate_create(self):
-        repo = MemoryFindRepository()
+        repo = FakeProductMemoryRepositoryFind()
         use_case = CreateProductUseCase(repo)
         self.assertRaises(UseCaseError, use_case.execute, "001", "Lizard", 25.99)
