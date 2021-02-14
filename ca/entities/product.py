@@ -22,3 +22,6 @@ class Product(IProduct):
 
     def __repr__(self):
         return f"""<Product code:{self.code}, name:{self.name}, base price:{self.price}>"""
+
+    def __hash__(self) -> int:
+        return hash((str(self.as_dict()), "WunderM0b1l1ty R0ckz"))
