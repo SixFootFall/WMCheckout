@@ -1,8 +1,6 @@
+from ca.exceptions import PromotionalRuleError
 from typing import Optional, Literal
 from .product import Product
-
-PROMO_TYPES = Literal["Total", "Product", ""]
-PROMO_MEASUREMENTS = Literal["percentage", "currency"]
 
 
 class PromotionalRule:
@@ -20,17 +18,35 @@ class PromotionalRule:
         discount_amount:    Amount of rule measure, that will trigger the rule
     """
 
+    TYPES = (
+        "TOTAL",
+        "PRODUCT",
+    )
+    MEASUREMENTS = (
+        "PERCENTAGE",
+        "CURRENCY",
+    )
+
     def __init__(
         self,
         name: str,
-        discount_type: PROMO_TYPES,
+        discount_type: Literal["TOTAL", "PRODUCT"],
         product: Optional[Product],
         target_quantity: int,
-        measure: PROMO_MEASUREMENTS,
+        measure: Literal["PERCENTAGE", "CURRENCY"],
         discount_amount: float,
     ) -> None:
+        if discount_type not in PromotionalRule.TYPES:
+            raise PromotionalRuleError("Not implemented promotional type")
+        if measure not in PromotionalRule.MEASUREMENTS:
+            raise PromotionalRuleError("Not implemented promotional measure")
+        if discount_type == "PRODUCT" and not isinstance(product, Product):
+            raise PromotionalRuleError("No product in product based promotional type")
+        if not isinstance(product, Product):
+            raise PromotionalRuleError("This is not a Product!")
+
         self.name = name
-        self.type = discount_type
+        self.discount_type = discount_type
         self.product = product
         self.target_quantity = target_quantity
         self.discount_amount = discount_amount
