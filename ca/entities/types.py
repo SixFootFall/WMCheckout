@@ -14,6 +14,9 @@ class PromoDiscountType(Enum):
     def has_value(cls, value):
         return value in cls._value2member_map_
 
+    def __eq__(self, other) -> bool:
+        return self.value == other
+
 
 class PromoMeasurementsType(Enum):
     PERCENTAGE = "PERCENTAGE"
@@ -22,3 +25,6 @@ class PromoMeasurementsType(Enum):
     @classmethod
     def has_value(cls, value):
         return value in cls._value2member_map_
+
+    def __eq__(self, other) -> bool:
+        return self.value == other
