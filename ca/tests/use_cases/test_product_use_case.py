@@ -3,13 +3,13 @@ from ca.entities.interfaces import IProduct
 from ca.entities.product import Product
 import unittest
 
-from ca.repositories.interfaces import IMemoryRepository
-from ca.use_cases.create_product_use_case import CreateProductUseCase
+from ca.repositories.interfaces import IProductRepository
+from ca.use_cases.products.create_product_use_case import CreateProductUseCase
 
 from ca.exceptions import UseCaseError
 
 
-class MemoryFindRepository(IMemoryRepository):
+class MemoryFindRepository(IProductRepository):
     def find_by_code(self, code: str) -> IProduct:
         return Product(code="001", name="Lizard", price=25.99)
 
@@ -20,7 +20,7 @@ class MemoryFindRepository(IMemoryRepository):
         return Product(code="001", name="Lizard", price=25.99)
 
 
-class MemoryCreateRepository(IMemoryRepository):
+class MemoryCreateRepository(IProductRepository):
     def find_by_code(self, code: str) -> IProduct:
         return None
 

@@ -3,7 +3,7 @@ from typing import List
 from ca.entities.interfaces import IProduct
 
 
-class IMemoryRepository(metaclass=ABCMeta):
+class IProductRepository(metaclass=ABCMeta):
     @abstractmethod
     def find_by_code(self, code: str) -> IProduct:
         ...

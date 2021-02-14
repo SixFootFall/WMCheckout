@@ -1,7 +1,7 @@
 from ca.exceptions import RepositoryError
 import unittest
 from ca.entities.product import Product
-from ca.repositories.memory import MemoryRepository
+from ca.repositories.product.memory_repository import MemoryRepository
 
 
 class MemoryRepositoryTest(unittest.TestCase):
