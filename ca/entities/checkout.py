@@ -64,6 +64,8 @@ class Checkout:
         value = value_
         if rule.measure == PromoMeasurementsType.CURRENCY:
             value -= rule.discount_amount
+            if value <= 0:
+                raise ValueError("Discounted value can not be below 0")
         elif rule.measure == PromoMeasurementsType.PERCENTAGE:
             value = Checkout._apply_percentage_discount(value, rule.discount_amount)
         return value
@@ -81,4 +83,4 @@ class Checkout:
         total_discount_rule = self._find_promo_rule(PromoDiscountType.TOTAL, None, total_sum)
         if total_discount_rule:
             total_sum = self.discounted_value(total_discount_rule, total_sum)
-        return total_sum
+        return round(total_sum, 2)
