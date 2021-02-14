@@ -28,6 +28,10 @@ class PromotionalRule:
         measure: Literal[PromoMeasurementsType.PERCENTAGE, PromoMeasurementsType.CURRENCY],
         discount_amount: float,
     ) -> None:
+        if discount_amount <= 0:
+            raise PromotionalRuleError("Discount amount should be positive integer")
+        if target_quantity < 0:
+            raise PromotionalRuleError("Target quantity should be greater or equal 0")
         if not PromoDiscountType.has_value(discount_type):
             raise PromotionalRuleError("Not implemented promotional type")
         if not PromoMeasurementsType.has_value(measure):
