@@ -4,7 +4,7 @@ from ca.entities.product import Product
 import unittest
 
 from ca.repositories.interfaces import IMemoryRepository
-from ca.use_cases.product_use_cases import CreateProductUseCase
+from ca.use_cases.create_product_use_case import CreateProductUseCase
 
 from ca.exceptions import UseCaseError
 
