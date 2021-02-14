@@ -1,10 +1,7 @@
+from ca.entities.types import CartType, PromoDiscountType, PromoMeasurementsType
 from .promotional_rule import PromotionalRule
 from .product import Product
-from typing import List, Literal, Optional, TypedDict
-
-
-class CartType(TypedDict):
-    Product: int
+from typing import List, Literal, Optional
 
 
 class Checkout:
@@ -37,7 +34,7 @@ class Checkout:
             lambda x: (x.discount_type == rule_type and x.target_quantity <= target_quantity),
             self.promotional_rules,
         )
-        if product and rule_type == "PRODUCT":
+        if product and rule_type == PromoDiscountType.PRODUCT:
             filtered_rules = filter(
                 lambda x: (x.product == product),
                 filtered_rules,
@@ -46,7 +43,7 @@ class Checkout:
 
     def _find_promo_rule(
         self,
-        rule_type: Literal["TOTAL", "PRODUCT"],
+        rule_type: Literal[PromoDiscountType.TOTAL, PromoDiscountType.PRODUCT],
         product: Optional[CartType],
         target_quantity: float,
     ) -> PromotionalRule:
@@ -65,9 +62,9 @@ class Checkout:
         if not rule:
             return value_
         value = value_
-        if rule.measure == "CURRENCY":
+        if rule.measure == PromoMeasurementsType.CURRENCY:
             value -= rule.discount_amount
-        elif rule.measure == "PERCENTAGE":
+        elif rule.measure == PromoMeasurementsType.PERCENTAGE:
             value = Checkout._apply_percentage_discount(value, rule.discount_amount)
         return value
 
@@ -75,11 +72,13 @@ class Checkout:
     def total(self):
         total_sum = 0
         for item in self.cart:
-            product_discount_rule = self._find_promo_rule("PRODUCT", item, self.cart[item])
+            product_discount_rule = self._find_promo_rule(
+                PromoDiscountType.PRODUCT, item, self.cart[item]
+            )
             price = self.discounted_value(product_discount_rule, item.price)
             total_sum += price * self.cart[item]
 
-        total_discount_rule = self._find_promo_rule("TOTAL", None, total_sum)
+        total_discount_rule = self._find_promo_rule(PromoDiscountType.TOTAL, None, total_sum)
         if total_discount_rule:
             total_sum = self.discounted_value(total_discount_rule, total_sum)
         return total_sum

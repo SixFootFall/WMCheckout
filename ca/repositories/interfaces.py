@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from ca.entities.types import PromoDiscountType, PromoMeasurementsType
 from ca.entities.product import Product
 from ca.entities.promotional_rule import PromotionalRule
 from typing import List, Literal, Optional
@@ -23,10 +24,10 @@ class IPromotionalRuleRepository(metaclass=ABCMeta):
     def create(
         self,
         name: str,
-        discount_type: Literal["TOTAL", "PRODUCT"],
+        discount_type: Literal[PromoDiscountType.TOTAL, PromoDiscountType.PRODUCT],
         product: Optional[Product],
         target_quantity: int,
-        measure: Literal["PERCENTAGE", "CURRENCY"],
+        measure: Literal[PromoMeasurementsType.PERCENTAGE, PromoMeasurementsType.CURRENCY],
         discount_amount: float,
     ) -> PromotionalRule:
         ...

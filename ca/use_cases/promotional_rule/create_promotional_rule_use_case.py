@@ -1,3 +1,4 @@
+from ca.entities.types import PromoDiscountType, PromoMeasurementsType
 from typing import Literal, Optional
 
 from ca.entities.product import Product
@@ -28,10 +29,10 @@ class CreatePromotionalRuleUseCase(IUseCase):
     def execute(
         self,
         name: str,
-        discount_type: Literal["TOTAL", "PRODUCT"],
+        discount_type: Literal[PromoDiscountType.TOTAL, PromoDiscountType.PRODUCT],
         product: Optional[Product],
         target_quantity: int,
-        measure: Literal["PERCENTAGE", "CURRENCY"],
+        measure: Literal[PromoMeasurementsType.PERCENTAGE, PromoMeasurementsType.CURRENCY],
         discount_amount: float,
     ) -> PromotionalRule:
         self._validate(
