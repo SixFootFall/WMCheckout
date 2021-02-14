@@ -1,9 +1,9 @@
 from ca.entities.interfaces import IProduct
 from ca.exceptions import UseCaseError
-from .interfaces import ICreateProductUseCase
+from ca.use_cases.interfaces import IUseCase
 
 
-class CreateProductUseCase(ICreateProductUseCase):
+class CreateProductUseCase(IUseCase):
     def __init__(self, repository=None):
         self.repo = repository
 

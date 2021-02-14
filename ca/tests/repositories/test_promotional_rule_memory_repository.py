@@ -23,24 +23,3 @@ class TestPromotionalRuleMemoryRepository(unittest.TestCase):
             discount_amount=10,
         )
         self.assertEqual(self.repo.entities, [rule])
-
-    def test_rule_already_exists(self):
-        _ = self.repo.create(
-            name="Test promo rule",
-            discount_type="TOTAL",
-            product=self.product,
-            target_quantity=1,
-            measure="PERCENTAGE",
-            discount_amount=10,
-        )
-
-        self.assertRaises(
-            PromotionalRuleError,
-            self.repo.create,
-            "Test promo rule",
-            "TOTAL",
-            self.product,
-            1,
-            "PERCENTAGE",
-            10,
-        )

@@ -41,5 +41,4 @@ class TestCreateProductUseCase(unittest.TestCase):
     def test_duplicate_create(self):
         repo = MemoryFindRepository()
         use_case = CreateProductUseCase(repo)
-        # entity = use_case.execute("001", "Lizard", 25.99)
         self.assertRaises(UseCaseError, use_case.execute, "001", "Lizard", 25.99)
