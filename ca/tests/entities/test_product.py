@@ -10,6 +10,12 @@ class ProductTest(unittest.TestCase):
         self.assertEqual(product.name, "Lizard")
         self.assertEqual(product.price, 25.99)
 
+    def test_product_init_bad_price(self):
+        self.assertRaises(ValueError, Product, "001", "Lizard", 0.00)
+
+    def test_product_init_negative_price(self):
+        self.assertRaises(ValueError, Product, "001", "Lizard", -5)
+
     def test_product_create_from_dict(self):
         adict = {"code": "001", "name": "Lizard", "price": 25.99}
         product = Product.from_dict(adict)
