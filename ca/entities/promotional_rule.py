@@ -42,8 +42,6 @@ class PromotionalRule:
             raise PromotionalRuleError("Not implemented promotional measure")
         if discount_type == "PRODUCT" and not isinstance(product, Product):
             raise PromotionalRuleError("No product in product based promotional type")
-        if not isinstance(product, Product):
-            raise PromotionalRuleError("This is not a Product!")
 
         self.name = name
         self.discount_type = discount_type
@@ -51,3 +49,9 @@ class PromotionalRule:
         self.target_quantity = target_quantity
         self.discount_amount = discount_amount
         self.measure = measure
+
+    def __repr__(self) -> str:
+        return (
+            f"""<Promotional Rule {self.name} type: "{self.discount_type}" """
+            + f"""on product "{self.product}" target {self.target_quantity}>"""
+        )
