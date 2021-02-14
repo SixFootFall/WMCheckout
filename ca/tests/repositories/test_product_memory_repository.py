@@ -4,7 +4,7 @@ from ca.entities.product import Product
 from ca.repositories.product.memory_repository import MemoryRepository
 
 
-class MemoryRepositoryTest(unittest.TestCase):
+class TestMemoryRepository(unittest.TestCase):
     def setUp(self):
         self.repo = MemoryRepository()
 
