@@ -36,6 +36,30 @@ class TestPromotionalRule(unittest.TestCase):
             10,
         )
 
+    def test_discount_more_than_100_percentage(self):
+        self.assertRaises(
+            PromotionalRuleError,
+            PromotionalRule,
+            "Fail",
+            "TOTAL",
+            self.product,
+            1,
+            "PERCENTAGE",
+            101,
+        )
+
+    def test_discount_more_product_price(self):
+        self.assertRaises(
+            PromotionalRuleError,
+            PromotionalRule,
+            "Fail",
+            "PRODUCT",
+            self.product,
+            1,
+            "CURRENCY",
+            self.product.price + 1,
+        )
+
     def test_fail_init_not_existing_measurement_type(self):
         self.assertRaises(
             PromotionalRuleError,

@@ -34,7 +34,12 @@ class PromotionalRule:
             raise PromotionalRuleError("Not implemented promotional measure")
         if discount_type == PromoDiscountType.PRODUCT and not isinstance(product, Product):
             raise PromotionalRuleError("No product in product based promotional type")
-
+        if (product and measure == PromoMeasurementsType.CURRENCY) and (
+            product.price <= discount_amount
+        ):
+            raise PromotionalRuleError("Discount amount can not be higher than Product price")
+        if measure == PromoMeasurementsType.PERCENTAGE and discount_amount >= 100:
+            raise PromotionalRuleError("Discount amount can not be more or equal 100%")
         self.name = name
         self.discount_type = discount_type
         self.product = product
