@@ -3,7 +3,7 @@ from typing import List
 from ca.entities.product import Product
 
 
-class MemoryRepository(IProductRepository):
+class MemoryProductRepository(IProductRepository):
     def __init__(self, entries=None):
         self._entries = []
         if entries:

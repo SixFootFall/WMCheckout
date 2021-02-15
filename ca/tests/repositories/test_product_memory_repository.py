@@ -1,12 +1,12 @@
 from ca.exceptions import RepositoryError
 import unittest
 from ca.entities.product import Product
-from ca.repositories.product.memory_repository import MemoryRepository
+from ca.repositories.product.memory_repository import MemoryProductRepository
 
 
 class TestMemoryRepository(unittest.TestCase):
     def setUp(self):
-        self.repo = MemoryRepository()
+        self.repo = MemoryProductRepository()
 
     def test_create_product(self):
         adict = {"code": "001", "name": "Lizard", "price": 25.99}
